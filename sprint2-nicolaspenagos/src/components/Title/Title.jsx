@@ -5,7 +5,7 @@ const styles = {
     titleRow:"flex mb-2 items-end"
 
 }
-function index({number, title}) {
+function Title({number, title}) {
   return (
     <div className={styles.titleRow}>
         <h1 className={styles.number}>{number}</h1>
@@ -14,4 +14,4 @@ function index({number, title}) {
   )
 }
 
-export default index
+export default Title
