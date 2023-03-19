@@ -9,17 +9,29 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border: none;
+  /*border: solid 1px red;*/
 }
 
 body{
   background-color: #FBFBFA;
 }
 
-.shadow{
+.custom-shadow{
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .p-badge.p-badge-warning{
   display: none;
 }
+
+table tbody tr td:last-child {
+  border-right: 0px;
+}
+
+table tbody tr:first-child td {
+  border-top-width: 5px;
+}
+
+
+
+

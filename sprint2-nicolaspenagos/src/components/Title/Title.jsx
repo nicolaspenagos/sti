@@ -14,4 +14,4 @@ function Title({number, title}) {
   )
 }
 
-export default Title
+export default Title;

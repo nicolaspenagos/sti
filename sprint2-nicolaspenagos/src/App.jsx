@@ -6,22 +6,38 @@ export const DataContext = React.createContext();
 const styles = {
   subtile: "font-bold text-slate-800",
   main: "m-20 mt-28",
-  header: "bg-indigo-600 flex pl-4 items-center fixed top-0 h-16 w-full shadow",
+  header: "bg-indigo-600 flex pl-4 items-center fixed top-0 h-16 w-full custom-shadow z-10",
   title: "font-bold text-xl text-slate-50",
   subtitle: "text-slate-300"
 }
 
 function App() {
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({ dataArray: [], indexStudentA: -1, indexStudentB: -1 });
+  const [resetTrigger, setResetTrigger] = useState(0);
 
-  const onChangeData = (newData) => {
-    setData(newData);
+  const onChangeData = (newDataArray) => {
+    setData((prevState) => ({dataArray: newDataArray, indexStudentA: -1, indexStudentB: -1}));
+    setResetTrigger((trigger) => trigger + 1);
+  }
+
+  const handleSelectStudent = (index) => {
+    
+    if (data.indexStudentA === index) {
+      setData((prevState) => ({ ...prevState, indexStudentA: -1 }));
+    } else if (data.indexStudentB === index) {
+      setData((prevState) => ({ ...prevState, indexStudentB: -1 }));
+    } else if (data.indexStudentA === -1) {
+      setData((prevState) => ({ ...prevState, indexStudentA: index }));
+    } else {
+      setData((prevState) => ({ ...prevState, indexStudentB: index }));
+    }
+   
   }
 
   const renderData = () => {
-    if(data.length>0){
-      return  <Data/>;
+    if (data.dataArray.length > 0) {
+      return <Data handleSelectStudent={handleSelectStudent} resetTrigger={resetTrigger}/>;
     }
   }
 
@@ -29,7 +45,7 @@ function App() {
     <>
       <header className={styles.header}>
         <h1 className={styles.title + ' mr-4'}>Spring 2</h1>
-        <h2 className={styles.subtitle}>Recommendation algorithm</h2>
+        <h2 className={styles.subtitle}>Cosine similarity</h2>
       </header>
       <main className={styles.main}>
         <DataContext.Provider value={data}>
@@ -41,5 +57,5 @@ function App() {
     </>
   );
 }
- 
+
 export default App;
