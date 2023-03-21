@@ -13,24 +13,24 @@ const styles = {
 
 function App() {
 
-  const [data, setData] = useState({ dataArray: [], indexStudentA: -1, indexStudentB: -1 });
+  const [data, setData] = useState({ dataArray: [], indexA: -1, indexB: -1 });
   const [resetTrigger, setResetTrigger] = useState(0);
 
   const onChangeData = (newDataArray) => {
-    setData((prevState) => ({dataArray: newDataArray, indexStudentA: -1, indexStudentB: -1}));
+    setData((prevState) => ({dataArray: newDataArray, indexA: -1, indexB: -1}));
     setResetTrigger((trigger) => trigger + 1);
   }
 
   const handleSelectStudent = (index) => {
     
-    if (data.indexStudentA === index) {
-      setData((prevState) => ({ ...prevState, indexStudentA: -1 }));
-    } else if (data.indexStudentB === index) {
-      setData((prevState) => ({ ...prevState, indexStudentB: -1 }));
-    } else if (data.indexStudentA === -1) {
-      setData((prevState) => ({ ...prevState, indexStudentA: index }));
+    if (data.indexA === index) {
+      setData((prevState) => ({ ...prevState, indexA: -1 }));
+    } else if (data.indexB === index) {
+      setData((prevState) => ({ ...prevState, indexB: -1 }));
+    } else if (data.indexA === -1) {
+      setData((prevState) => ({ ...prevState, indexA: index }));
     } else {
-      setData((prevState) => ({ ...prevState, indexStudentB: index }));
+      setData((prevState) => ({ ...prevState, indexB: index }));
     }
    
   }

@@ -11,8 +11,8 @@ function DataItem({ element, index, handleSelectStudent }) {
     const data = useContext(DataContext);
 
     const itemStyle = () =>{
-        if(data.indexStudentA===index) return {style:'bg-green-100 hover:bg-green-100', img:"/green-circle.png"};
-        if(data.indexStudentB===index) return {style:'bg-sky-100 hover:bg-sky-100', img:"/blue-circle.png"};
+        if(data.indexA===index) return {style:'bg-green-100 hover:bg-green-100', img:"/green-circle.png"};
+        if(data.indexB===index) return {style:'bg-sky-100 hover:bg-sky-100', img:"/blue-circle.png"};
         return {style:styles.tr, img:"/white-circle.png"};
     }
 
