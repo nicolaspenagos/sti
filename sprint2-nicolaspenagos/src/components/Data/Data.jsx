@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import DataItem from './DataItem';
 import { DataContext } from '../../App';
 import Title from '../Title/Title';
-import { cosineSimlarity } from '../../service/MyMath';
+import { cosineSimilarity } from '../../service/MyMath';
 
 const styles = {
     section: " mt-8 min-h-[466px]",
@@ -16,9 +16,9 @@ const styles = {
     selectedDiv:" p-1 rounded-md max-w-fit mt-0 ml-2 mr-2 custom-shadow",
     selectedGreen:" bg-green-200 text-green-700",
     selectedBlue:" bg-sky-200 text-sky-700",
-    resultDiv:" text-slate-800 flex items-center text-lg",
+    resultDiv:" text-slate-800 text-lg font-mono",
     unselected:" text-slate-500",
-    similairty:" font-bold text-rose-500 ml-2"
+    similairty:" font-bold  ml-3"
 
 }
 
@@ -52,7 +52,7 @@ function Data({ handleSelectStudent, resetTrigger }) {
         let elementKeys = Object.keys(data.dataArray[0]);
         return <tr className={styles.tableHeader}>
             <th className={styles.th}></th>
-            <th className={styles.th}>#</th>
+            <th className={styles.th}>IDX</th>
             {
                 elementKeys.map((key, index) =>
                     <th key={index} className={(index === elementKeys.length - 1) ? "border-r-0 " + styles.th : styles.th}>{key.toUpperCase()}</th>
@@ -102,19 +102,27 @@ function Data({ handleSelectStudent, resetTrigger }) {
     }
 
     const getSimilarity = () => {
-        const indexA = data[INDEX_A_KEY];
-        const indexB = data[INDEX_B_KEY];
-
-        const itemA = data.dataArray[indexA];
-        const itemB = data.dataArray[indexB];
-
-         //Removing the name/id of the item
-        const vectorA = Object.values(itemA).slice(1);
-        const vectorB = Object.values(itemB).slice(1);
-
-        const similairty = cosineSimlarity(vectorA, vectorB);
-        return similairty.toFixed(6)+"...";
-    }
+        const { [INDEX_A_KEY]: indexA, [INDEX_B_KEY]: indexB, dataArray } = data;
+      
+        const itemA = dataArray[indexA];
+        const itemB = dataArray[indexB];
+      
+        const [itemAName, ...vectorA] = Object.values(itemA);
+        const [itemBName, ...vectorB] = Object.values(itemB);
+      
+        const similarity = cosineSimilarity(vectorA, vectorB);
+      
+        const similarityPercent = (similarity * 100).toFixed(2) + "%";
+        const angleDegrees = (Math.acos(similarity) * (180 / Math.PI)).toFixed(2) + "º";
+      
+        return (
+          <p className="mono">
+            Sc(<span className="mono">{itemAName.charAt(0)},{itemBName.charAt(0)}</span>) = {similarity.toFixed(4)} ≈ {similarityPercent}
+            <br />
+            Angle Between Vectors = θ = {angleDegrees}
+          </p>
+        );
+      }
 
     return (
         <section className={styles.section}>
@@ -139,11 +147,13 @@ function Data({ handleSelectStudent, resetTrigger }) {
                 </button>
             </nav>
             <article className={styles.resultDiv}>
-                <p>The cosine similarity between</p>
+                <div className='flex items-center'>
+                <p>The similarity between</p>
                 {renderSelected(INDEX_A_KEY)}
                 <p>and</p>
                 {renderSelected(INDEX_B_KEY)}
                 <p>is:</p>
+                </div>
                 <div className={styles.similairty}>
                     {(data[INDEX_A_KEY]!=-1&&data[INDEX_B_KEY]!=-1)?getSimilarity():""}
                 </div>

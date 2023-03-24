@@ -34,7 +34,7 @@ function Loader({onChangeData}) {
         <section>
                 <Title number="1." title="Choose and load the data" />
                 <FileUpload className="custom-shadow rounded-md" name="demo[]" accept=".csv" maxFileSize={1000000} emptyTemplate={<p className="m-0">
-                To upload, please drag and drop a CSV file here.<br/>Please ensure that the first column contains the item name/ID, and the subsequent columns contain only numeric values.
+                To upload, please drag and drop a CSV file here.<br/>Please ensure that the first column is a string and the subsequent columns contain only numeric values.
                 </p>} customUpload uploadHandler={handleUpload} />
                 {renderFileUploaded()}
         </section>

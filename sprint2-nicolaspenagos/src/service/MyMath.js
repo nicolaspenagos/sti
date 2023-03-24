@@ -27,7 +27,6 @@ const getVectorMagnitude = (v) => {
     return Math.sqrt(sum);
 }
 
-export const cosineSimlarity = (v1, v2) => {
-    console.log(escalarProduct(v1,v2))
+export const cosineSimilarity = (v1, v2) => {
     return escalarProduct(v1,v2)/(getVectorMagnitude(v1)*getVectorMagnitude(v2));
 }
